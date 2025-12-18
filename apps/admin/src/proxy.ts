@@ -2,23 +2,28 @@ import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
 
 export function proxy(req: NextRequest) {
+    const { pathname } = req.nextUrl
 
-    console.log("Middleware")
+    // Allow login page
+    if (pathname === "/login") {
+        return NextResponse.next()
+    }
+
+    // Read cookie
     const token = req.cookies.get("admin_session")?.value
 
-
-    const isAdminRoute = req.nextUrl.pathname.startsWith("/")
-    const isLoginRoute = req.nextUrl.pathname === "/login"
-
-    if (isAdminRoute && !isLoginRoute) {
-        if (token !== process.env.ADMIN_SESSION_TOKEN) {
-            return NextResponse.redirect(new URL("/login", req.url))
-        }
+    // Protect everything else
+    if (token !== process.env.ADMIN_SESSION_TOKEN) {
+        const loginUrl = req.nextUrl.clone()
+        loginUrl.pathname = "/login"
+        return NextResponse.redirect(loginUrl)
     }
 
     return NextResponse.next()
 }
 
 export const config = {
-    matcher: ["/:path*"],
+    matcher: [
+        "/((?!login|api|_next|favicon.ico).*)",
+    ],
 }

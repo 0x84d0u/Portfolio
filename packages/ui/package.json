@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "exports": {
-    "./*": "./src/*.tsx"
+    ".": "./src/index.ts",
+    "./styles.css" : "./styles.css"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
@@ -21,6 +22,7 @@
   },
   "dependencies": {
     "clsx": "^2.1.1",
+    "lucide-react": "^0.562.0",
     "react": "19.2.1",
     "react-dom": "19.2.1",
     "tailwind-merge": "^3.4.0"

@@ -1,7 +1,11 @@
-import { cn } from "@portfolio/ui/cn";
+import { cn, Page, Section } from "@portfolio/ui";
+import { LoginForm } from "../../features/auth/LoginForm";
 
 export default function LoginPage() {
-    return <div className={cn("")}> 
-        Login
-    </div>
+    return <Page> 
+        
+        <Section>
+            <LoginForm />
+        </Section>
+    </Page>
 }
