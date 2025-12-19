@@ -2,21 +2,21 @@ import { Form, FormControl, InputParagraph, InputTags, InputText, Toggle } from 
 
 
 
-type Profile = {
-    firstName: string
-    lastName: string
+// type Profile = {
+//     firstName: string
+//     lastName: string
 
-    email: string
-    phone: string
+//     email: string
+//     phone: string
 
-    githubName: string
-    linkedinName?: string
-    instagramName?: string
-    facebookName?: string
+//     githubName: string
+//     linkedinName?: string
+//     instagramName?: string
+//     facebookName?: string
 
-    availability?: boolean
-    location?: string[]
-}
+//     availability?: boolean
+//     location?: string[]
+// }
 
 export const ProfileForm = () => {
     return <Form>

@@ -3,10 +3,8 @@ import { WorkForm } from "../../../../features/work/WorkForm";
 
 export default function AddWorkPage() {
     return <Section>
-        <WorkForm 
-            mode="create"
-            initialData={{}}
-            
+        <WorkForm
+            mode="create"            
         />
     </Section>
 }

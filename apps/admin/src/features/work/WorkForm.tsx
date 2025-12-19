@@ -1,29 +1,25 @@
+"use client"
 
-import { Form, FormControl, FormMode, InputParagraph, InputTags, InputText, RadioGroup, Toggle } from "@portfolio/ui"
-import { createWork, updateWork } from "./actions";
+import { Form, FormControl, InputParagraph, InputTags, InputText, RadioGroup } from "@portfolio/ui"
+import { createWork, updateWork, type WorkFormState } from "./actions";
+import { Work } from "./types";
+import { useFormState } from "react-dom";
 
 
-type WorkContract = 'full-time' | 'part-time' | 'freelance';
-type WorkLocation = 'wfh' | 'wfo' | 'hybrid';
-export type Work = {
-    
-    title: string
-    description: string
-    roles: string[]
-
-    period: string
-    organisation: string
-    address: string
-
-    location: WorkLocation
-    contract: WorkContract
+type CreateProps = {
+    mode: 'create'
+    initialData?: never
 }
+
+type UpdateProps = {
+    mode: 'update'
+    initialData: Work
+}
+
 
 export type WorkFormProps = {
     className?: string
-    initialData?: Partial<Work>
-    mode?: 'create' | 'update'
-}
+} & (CreateProps | UpdateProps)
 
 export const WorkForm = ({
     className,
@@ -31,30 +27,19 @@ export const WorkForm = ({
     mode,
 }: WorkFormProps) => {
 
-    const action = async (fd: FormData) => {
-        const data: Work = {
-            title: fd.get("title") as string,
-            description: fd.get("description") as string,
-            roles: fd.getAll("roles") as string[],
-            period: fd.get("time") as string,
-            organisation: fd.get("organisation") as string,
-            address: fd.get("address") as string,
-            location: fd.get("location") as WorkLocation,
-            contract: fd.get("contract") as WorkContract,
-        }
-
-        if (mode === 'create') {
-            await createWork(data)
-
-        }
-        if (mode === 'update') {
-            await updateWork(data)
-
-        }
-    }
+    const [state, action] = useFormState<WorkFormState, FormData>(
+        mode === 'create' ? createWork : updateWork,
+        {}
+    )
 
 
-    return <Form className={className} action={action} mode={mode}>
+    return <Form
+        className={className}
+        action={action}
+        submitText={mode === 'update' ? 'Update' : 'Create'}
+    >
+        {mode === "update" && <input type="hidden" name="id" value={initialData.id} />}
+
         <FormControl label="Title">
             <InputText name="title" defaultValue={initialData?.title} />
         </FormControl>
@@ -100,6 +85,5 @@ export const WorkForm = ({
                     { label: "Freelance", value: "freelance" },
                 ]} />
         </FormControl>
-
     </Form>
 }

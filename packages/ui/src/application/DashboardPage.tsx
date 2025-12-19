@@ -1,12 +1,11 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { Heading, Text } from "../foundation/Typograpghy"
+import { Text } from "../foundation/Typograpghy"
 import { Section } from "./Section"
 import { NavigationItem } from "./Navigation";
 import Link from "next/link";
 import { cn } from "../cn";
-import { Icon } from "../foundation/Icon";
 
 type DashboardPageProps = {
     children?: React.ReactNode
@@ -25,17 +24,13 @@ export const DashboardPage = ({
 
     const showHeader = !!title || !!subtitle || !!navigation
 
-    const renderTitle = () => {
-        if (!title) return null
-        const text = typeof title === 'string' ? title : typeof title === 'object' && pathname in title ? title[pathname] : null;
-        return <Text as='h1' className="text-2xl font-semibold">{text} </Text>
-    }
+    const resolveText = (value : Record<string, string> | string) =>
+        typeof value === "string"
+            ? value
+            : value && pathname in value
+                ? value[pathname]
+                : null;
 
-    const renderSubtitle = () => {
-        if (!subtitle) return null
-        const text = typeof subtitle === 'string' ? subtitle : typeof subtitle === 'object' && pathname in subtitle ? subtitle[pathname] : null;
-        return <Text as='p' className="italic">— {text}</Text>
-    }
 
     const renderNavigation = () => {
         if (!navigation) return null;
@@ -64,8 +59,8 @@ export const DashboardPage = ({
         <div className="bg-slate-50 h-16 " > </div>
         {showHeader && <Section className="bg-slate-50 p-0">
             <div className="flex items-center gap-2">
-                {renderTitle()}
-                {renderSubtitle()}
+                {title && <Text as="h1">{resolveText(title)}</Text>}
+                {subtitle && <Text as="p">— {resolveText(subtitle)}</Text>}
             </div>
             {renderNavigation()}
         </Section>}

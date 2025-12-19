@@ -6,16 +6,15 @@
 
 generator client {
   provider = "prisma-client"
-  output   = "../generated/prisma"
+  output   = "../src/generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
 }
 
-
 model Profile {
-  id String @id @default(uuid())
+  id String @id @default(cuid())
 
   firstName String
   lastName  String
@@ -35,4 +34,34 @@ model Profile {
   updatedAt DateTime @updatedAt
 
   @@unique([id])
+}
+
+model Work {
+  id String @id @default(cuid())
+
+  title       String
+  description String
+  roles       String[]
+
+  period       String
+  organisation String
+  address      String
+
+  location WorkLocation
+  contract WorkContract
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum WorkLocation {
+  wfh
+  wfo
+  hybrid
+}
+
+enum WorkContract {
+  full_time
+  part_time
+  freelance
 }
