@@ -1,44 +1,65 @@
-import React from "react";
-import { Icon, IconName } from "../foundation/Icon";
-import { cn } from "../cn";
+import * as React from "react"
+import { Icon, type IconName } from "../foundation/Icon"
+import { cn } from "../cn"
 
 export type InputTextProps =
-  Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange"> & {
-    start?: React.ReactNode;
-    end?: React.ReactNode;
-    icon?: IconName;
-    onChange?: (value: string) => void;
-  };
+  React.InputHTMLAttributes<HTMLInputElement> & {
+    start?: React.ReactNode
+    end?: React.ReactNode
+    icon?: IconName
+  }
 
-export const InputText = ({
-  className,
-  start,
-  end,
-  icon,
-  type = "text",
-  onChange,
-  ...rest
-}: InputTextProps) => {
+export const InputText = React.forwardRef<
+  HTMLInputElement,
+  InputTextProps
+>(function InputText(
+  {
+    className,
+    start,
+    end,
+    icon,
+    type = "text",
+    disabled,
+    ...rest
+  },
+  ref
+) {
   return (
     <div
       className={cn(
-        "flex-1 flex items-center gap-2",
-        "h-9 min-h-9 rounded-md border border-border/50 bg-white px-2 text-sm",
-        "focus-within:ring focus-within:ring-accent",
+        "flex w-full items-center gap-2 rounded-md border border-border/50",
+        "h-9 bg-background px-2 text-sm",
+        "focus-within:ring-2 focus-within:ring-ring",
+        disabled && "opacity-50 cursor-not-allowed",
         className
       )}
     >
-      {icon && <Icon name={icon} size={16} className="text-muted/50" />}
-      {start && <span className="text-muted/50">{start}</span>}
+      {icon && (
+        <Icon
+          name={icon}
+          size={16}
+          className="shrink-0 text-muted-foreground"
+        />
+      )}
+
+      {start && (
+        <span className="shrink-0 text-muted-foreground">
+          {start}
+        </span>
+      )}
 
       <input
+        ref={ref}
         type={type}
-        className="flex-1 bg-transparent outline-none"
-        onChange={(e) => onChange?.(e.target.value)}
+        disabled={disabled}
+        className={cn(
+          "flex-1 bg-transparent outline-none",
+          "placeholder:text-muted-foreground"
+        )}
         {...rest}
       />
 
-      {end}
+      {end && <div className="shrink-0">{end}</div>}
     </div>
-  );
-};
+  )
+})

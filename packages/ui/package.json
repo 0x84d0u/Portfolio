@@ -23,6 +23,7 @@
     "@tailwindcss/postcss": "^4"
   },
   "dependencies": {
+    "next": "16.0.10",
     "clsx": "^2.1.1",
     "lucide-react": "^0.562.0",
     "react": "19.2.1",

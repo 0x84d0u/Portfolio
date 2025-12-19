@@ -6,50 +6,37 @@ import { Heading, Text } from "../foundation/Typograpghy"
 import { Section } from "./Section"
 
 type PageProps = {
-    isAlt?: boolean
-
-    title?: string
-    description?: string
     children?: React.ReactNode
-    // nav?: NavigationItem[]
-    error?: string
 }
 
 export const Page = ({
-    title,
-    description,
-    error,
-    // nav,
     children,
-    isAlt = true
 }: PageProps) => {
-
-    const roorCn = cn(
-        "flex-1 flex flex-col", 
-        // "border-t border-border",
-        isAlt && 'bg-slate-50'
-    )
-    if (error) {
-        return <div className={roorCn}>
-            <Section>
-                <Heading size="page" color="muted">{error}</Heading>
-            </Section>
-        </div>
-    }
-
-    // const showHeader = title || description || nav
-    const showHeader = title || description 
-
-    return <div className={roorCn}>
-        {showHeader && <section className="py-6">
-            <Container>
-                {title && <Heading size="page">{title}</Heading>}
-                {description && <Text>{description}</Text>}
-                {/* {nav && <Navigation items={nav} />} */}
-            </Container>
-        </section>}
-        <div className="">
-            {children}
-        </div>
+    return <div className={cn("flex-1 flex flex-col")}>
+        {children}
     </div>
+}
+
+// ---------- Page ---------- //
+
+export type PageHeaderProps = {
+    negativeSapceTop?: number
+    title?: string
+    description?: string
+}
+
+export const PageHeader = ({
+    negativeSapceTop = 0,
+    title,
+    description
+}: PageHeaderProps) => {
+    const showHeader = title || description
+    return <Section className="bg-slate-100 py-6">
+        {negativeSapceTop > 0 && <div style={{ height: negativeSapceTop }}> </div>}
+        {showHeader && <div className="">
+            {title && <Heading size="page">{title}</Heading>}
+            {description && <Text>{description}</Text>}
+            {/* {nav && <Navigation items={nav} />} */}
+        </div>}
+    </Section>
 }

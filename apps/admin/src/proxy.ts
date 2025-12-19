@@ -4,12 +4,10 @@ import type { NextRequest } from "next/server"
 export function proxy(req: NextRequest) {
     const { pathname } = req.nextUrl
 
-    // Allow login page
-    if (pathname === "/login") {
-        return NextResponse.next()
-    }
+    const res = NextResponse.next()
 
-    // Read cookie
+    if (pathname === "/login") return res
+
     const token = req.cookies.get("admin_session")?.value
 
     // Protect everything else
@@ -19,7 +17,8 @@ export function proxy(req: NextRequest) {
         return NextResponse.redirect(loginUrl)
     }
 
-    return NextResponse.next()
+    res.headers.set("x-pathname", req.nextUrl.pathname)
+    return res
 }
 
 export const config = {
