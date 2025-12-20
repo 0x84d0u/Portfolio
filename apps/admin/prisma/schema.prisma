@@ -35,24 +35,6 @@ model Profile {
   @@unique([id])
 }
 
-model Work {
-  id String @id @default(cuid())
-
-  title       String
-  description String?
-  roles       String[]
-
-  period       String?
-  organisation String?
-  address      String?
-
-  location WorkLocation?
-  contract WorkContract?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
 enum WorkLocation {
   wfh
   wfo
@@ -93,4 +75,36 @@ enum ExperienceType {
   work
   education
   certificate
+}
+
+model Project {
+  id String @id @default(cuid())
+
+  title       String
+  desc        String
+  description String?
+
+  category ProjectCategory
+  status   ProjectStatus
+  hidden   Boolean         @default(false)
+
+  imageUrl String?
+  links   Json?
+  content Json?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum ProjectCategory {
+  professional
+  personal
+  portfolio
+  other
+}
+
+enum ProjectStatus {
+  upcoming
+  ongoing
+  completed
 }

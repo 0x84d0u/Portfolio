@@ -9,6 +9,7 @@ const primaryNavigation: NavigationItem[] = [
     { label: "Home", path: "/" },
     { label: "Profile", path: "/profile" },
     { label: "Experience", path: "/experience" },
+    { label: "Projects", path: "/projects" },
 ]
 
 export const PagesNavigation = () => {

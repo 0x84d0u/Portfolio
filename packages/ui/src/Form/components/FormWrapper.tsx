@@ -1,12 +1,12 @@
 import React from "react";
-import { cn } from "../cn";
+import { cn } from "../../cn";
 
 export type FormProps = React.ComponentProps<'form'> & {
     submitText?: string
     error?: string
 }
 
-export const Form = ({
+export const FormWrapper = ({
     submitText = 'submit',
     error,
     

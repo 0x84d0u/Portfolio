@@ -3,7 +3,7 @@
 
 import { useState } from "react"
 import { login } from "./actions"
-import { Form, FormControl, InputText } from "@portfolio/ui"
+import { FormWrapper, FormControl, InputText } from "@portfolio/ui"
 
 export const LoginForm = () => {
     const [error, setError] = useState("")
@@ -24,7 +24,7 @@ export const LoginForm = () => {
         }
     }
 
-    return <Form onSubmit={onSubmit} >
+    return <FormWrapper onSubmit={onSubmit} >
         <FormControl label="Email">
             <InputText name="email" type="email" />
         </FormControl>
@@ -32,5 +32,5 @@ export const LoginForm = () => {
             <InputText name="password" type="password" required />
         </FormControl>
         {error && <p className="text-red-500">{error}</p>}
-    </Form>
+    </FormWrapper>
 }

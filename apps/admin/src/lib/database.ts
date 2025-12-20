@@ -10,6 +10,5 @@ const database = new PrismaClient({ adapter })
 export { database }
 
 export { 
-    type WorkModel,
     type ProfileModel,
 } from '../generated/prisma/models'

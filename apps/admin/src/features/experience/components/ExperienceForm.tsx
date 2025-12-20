@@ -1,11 +1,12 @@
 "use client"
 
 import { useActionState, useEffect } from "react";
-import { Form, FormControl, InputParagraph, InputTags, InputText, RadioGroup } from "@portfolio/ui"
 import { ExperienceType } from "../types";
 import { ExperienceModel } from "../../../generated/prisma/models";
 import { FormState } from "../../../utils/form";
 import { createCertificate, createEducation, createWork, updateCertificate, updateEducation, updateWork } from "../action";
+
+import { Field, Form } from "@portfolio/ui";
 
 
 type CreateProps = { mode: 'create'; initialData?: never }
@@ -42,7 +43,7 @@ export const ExperienceForm = ({
         }
     }, [state.success, onSuccess]);
 
-    return <Form
+    return <Form.Wrapper
         error={state.error}
         className={className}
         action={action}
@@ -52,49 +53,49 @@ export const ExperienceForm = ({
         <div className="bg-red-50">
             {type} - {mode}
         </div>
-        <FormControl label="Title">
-            <InputText name="title" defaultValue={initialData?.title} />
-        </FormControl>
-        <FormControl label="Description">
-            <InputParagraph name="description" defaultValue={initialData?.description ?? ''} />
-        </FormControl>
-        <FormControl label="Roles">
-            <InputTags name="roles" icon="Cog" defaultValue={initialData?.roles ?? []} />
-        </FormControl>
+        <Form.Control label="Title">
+            <Field.Text name="title" defaultValue={initialData?.title} />
+        </Form.Control>
+        <Form.Control label="Description">
+            <Field.TextArea name="description" defaultValue={initialData?.description ?? ''} />
+        </Form.Control>
+        <Form.Control label="Roles">
+            <Field.Tags name="roles" icon="Cog" defaultValue={initialData?.roles ?? []} />
+        </Form.Control>
 
-        <FormControl label="Organisation" >
-            <InputText name="organisation" icon="Building" defaultValue={initialData?.organisation ?? ''} />
-        </FormControl>
-        <FormControl label="Address" >
-            <InputText name="address" icon="Map" defaultValue={initialData?.address ?? ''} />
-        </FormControl>
+        <Form.Control label="Organisation" >
+            <Field.Text name="organisation" icon="Building" defaultValue={initialData?.organisation ?? ''} />
+        </Form.Control>
+        <Form.Control label="Address" >
+            <Field.Text name="address" icon="Map" defaultValue={initialData?.address ?? ''} />
+        </Form.Control>
 
-        <FormControl label="Time period">
-            <InputText name="period" placeholder="Jan 2023 – Dec 2024" defaultValue={initialData?.period ?? ''} />
-        </FormControl>
-        {type === ExperienceType.work && <FormControl label="Location">
-            <RadioGroup
+        <Form.Control label="Time period">
+            <Field.Text name="period" placeholder="Jan 2023 – Dec 2024" defaultValue={initialData?.period ?? ''} />
+        </Form.Control>
+        {type === ExperienceType.work && <Form.Control label="Location">
+            <Field.Radio
                 name="location"
-                defaultValue={initialData?.location ?? ''}
+                defaultValue={[initialData?.location ?? '']}
                 options={[
                     { label: "Work from home", value: "wfh" },
                     { label: "Work from office", value: "wfo" },
                     { label: "Hybrid", value: "hybrid" },
                 ]} />
-        </FormControl>}
-        {type === ExperienceType.work && <FormControl label="Contract">
-            <RadioGroup
+        </Form.Control>}
+        {type === ExperienceType.work && <Form.Control label="Contract">
+            <Field.Radio
                 name="contract"
-                defaultValue={initialData?.contract ?? ''}
+                defaultValue={[initialData?.contract ?? '']}
                 options={[
                     { label: "Full time", value: "full_time" },
                     { label: "Part time", value: "part_time" },
                     { label: "Freelance", value: "freelance" },
                 ]} />
-        </FormControl>}
+        </Form.Control>}
 
-        {type === ExperienceType.certificate && <FormControl label="Auth link">
-            <InputParagraph name="authLink" defaultValue={initialData?.authLink ?? ''} rows={2} />
-        </FormControl>}
-    </Form>
+        {type === ExperienceType.certificate && <Form.Control label="Auth link">
+            <Field.TextArea name="authLink" defaultValue={initialData?.authLink ?? ''} rows={2} />
+        </Form.Control>}
+    </Form.Wrapper>
 }

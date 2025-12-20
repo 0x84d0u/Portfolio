@@ -1,6 +1,6 @@
 "use client";
 
-import { Form, FormControl, InputTags, InputText, Toggle } from "@portfolio/ui"
+import { Field, Form  } from "@portfolio/ui"
 import { ProfileFormState, ProfileModel } from "../types";
 import { updateProfile } from "../actions";
 import { useActionState, useEffect } from "react";
@@ -25,32 +25,32 @@ export const ProfileForm = ({
         }
     }, [state.success, onSuccess]);
 
-    return <Form
+    return <Form.Wrapper
         error={state.error}
         className={className}
         action={action}
     >
 
-        <FormControl label="Name" className="grid grid-cols-2">
-            <InputText name="firstName" placeholder="First name" defaultValue={initialData.firstName} />
-            <InputText name="lastName" placeholder="Last name" defaultValue={initialData.lastName} />
-        </FormControl>
+        <Form.Control label="Name" className="grid grid-cols-2">
+            <Field.Text name="firstName" placeholder="First name" defaultValue={initialData.firstName} />
+            <Field.Text name="lastName" placeholder="Last name" defaultValue={initialData.lastName} />
+        </Form.Control>
 
-        <FormControl label="Contact">
-            <InputText name="phone" placeholder="Phone" icon="Phone" defaultValue={initialData?.phone || ""} />
-            <InputText name="email" placeholder="Email" icon="Mail" defaultValue={initialData?.email || ""} />
-            <InputText name="websiteLink" icon="Satellite" defaultValue={initialData?.websiteLink || ""} />
-        </FormControl>
+        <Form.Control label="Contact">
+            <Field.Text name="phone" placeholder="Phone" icon="Phone" defaultValue={initialData?.phone || ""} />
+            <Field.Text name="email" placeholder="Email" icon="Mail" defaultValue={initialData?.email || ""} />
+            <Field.Text name="websiteLink" icon="Satellite" defaultValue={initialData?.websiteLink || ""} />
+        </Form.Control>
 
-        <FormControl label="Social Media">
-            <InputText name="githubName" icon="Github" defaultValue={initialData?.githubUsername || ""} />
-            <InputText name="linkedinName" icon="Linkedin" defaultValue={initialData?.linkedinUsername || ""} />
-        </FormControl>
+        <Form.Control label="Social Media">
+            <Field.Text name="githubName" icon="Github" defaultValue={initialData?.githubUsername || ""} />
+            <Field.Text name="linkedinName" icon="Linkedin" defaultValue={initialData?.linkedinUsername || ""} />
+        </Form.Control>
 
-        <FormControl label="Availability">
-            <Toggle name="availability" defaultChecked={initialData.availability} />
+        <Form.Control label="Availability">
+            <Field.Toggle name="availability" defaultValue={initialData.availability} label="Available for work ?" />
             {/* <InputTags name="location" icon="Globe" /> */}
-        </FormControl>
+        </Form.Control>
 
-    </Form>
+    </Form.Wrapper>
 }

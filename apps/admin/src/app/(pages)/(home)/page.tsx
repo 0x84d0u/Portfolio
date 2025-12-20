@@ -1,9 +1,10 @@
 import { DashboardPage, Section } from "@portfolio/ui";
+import { FakeForm } from "./form";
 
-export default function Home() {
+export default async function Home() {
   return <DashboardPage title="Homepage">
     <Section>
-      Home
+      <FakeForm /> 
     </Section>
   </DashboardPage>
 }

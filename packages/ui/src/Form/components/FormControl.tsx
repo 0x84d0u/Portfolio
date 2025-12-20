@@ -1,5 +1,5 @@
-import { cn } from "../cn"
-import { Text } from "../foundation/Typograpghy"
+import { cn } from "../../cn"
+import { Text } from "../../foundation/Typograpghy"
 
 export type FormControlProps = {
     label?: string
