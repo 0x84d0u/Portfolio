@@ -3,67 +3,103 @@
 import { usePathname } from "next/navigation";
 import { Text } from "../foundation/Typograpghy"
 import { Section } from "./Section"
-import { NavigationItem } from "./Navigation";
 import Link from "next/link";
 import { cn } from "../cn";
+import { NavigationItem } from "./Navigation";
 
-type DashboardPageProps = {
-    children?: React.ReactNode
-    title?: Record<string, string> | string
-    subtitle?: Record<string, string> | string
-    navigation?: NavigationItem[]
-}
+
+export type DashboardPageProps = {
+   children?: React.ReactNode;
+   title?: string;
+   subtitle?: string;
+   buttons?: React.ReactNode;
+   navigation?: NavigationItem[];
+};
+
+// // Returns true if nav item should be active
+// export const isNavigationItemActive = (item: NavigationItem, pathname: string) => {
+//     if (item.isActive) return true;
+
+//     if (item.matcher) return item.matcher.test(pathname);
+
+//     // fallback: match path prefix
+//     return pathname === item.path || pathname.startsWith(item.path + "/");
+// };
+
+// // Resolves dynamic title/subtitle based on regexes
+// export const resolvePathnameText = (
+//     value: string | Record<string, RegExp>,
+//     pathname: string
+// ): string | null => {
+//     if (!value) return null;
+//     if (typeof value === "string") return value;
+
+//     for (const displayText in value) {
+//         const regex = value[displayText];
+//         if (regex?.test(pathname)) return displayText;
+//     }
+
+//     return null;
+// };
+
 
 export const DashboardPage = ({
-    children,
-    title,
-    subtitle,
-    navigation,
+   children,
+   title,
+   subtitle,
+   buttons,
+   navigation,
 }: DashboardPageProps) => {
-    const pathname = usePathname();
+   const pathname = usePathname();
 
-    const showHeader = !!title || !!subtitle || !!navigation
+   const showHeader = !!title || !!subtitle || !!navigation;
 
-    const resolveText = (value : Record<string, string> | string) =>
-        typeof value === "string"
-            ? value
-            : value && pathname in value
-                ? value[pathname]
-                : null;
+   const renderNavigation = () => {
+      if (!navigation) return null;
 
-
-    const renderNavigation = () => {
-        if (!navigation) return null;
-        return <div className="flex items-center justify-start">
+      return (
+         <div className="flex items-center justify-start">
             {navigation.map((item, key) => {
-                const { label, path, icon } = item
-                const isActive = pathname === path;
-                return <Link
-                    key={key}
-                    href={path}
-                    className={cn(
+               //   const isActive = isNavigationItemActive(item, pathname);
+               const isActive = false;
+               return (
+                  <Link
+                     key={key}
+                     href={item.path}
+                     className={cn(
                         "transition-all text-muted h-9",
                         "font-semibold",
                         "flex items-center border-b-2 border-transparent px-4",
-                        isActive ? "text-accent border-accent" : "hover:text-heading"
-                    )}
-                >
-                    {/* {icon && <Icon name={icon} size={16} className="opacity-50 mr-1" />} */}
-                    {label}
-                </Link>
+                        isActive
+                           ? "text-accent border-accent"
+                           : "hover:text-heading"
+                     )}
+                     target={item.newTab ? "_blank" : undefined}
+                  >
+                     {item.label}
+                  </Link>
+               );
             })}
-        </div>
-    }
+         </div>
+      );
+   };
 
-    return <main className="flex-1 flex flex-col">
-        <div className="bg-slate-50 h-16 " > </div>
-        {showHeader && <Section className="bg-slate-50 p-0">
-            <div className="flex items-center gap-2">
-                {title && <Text as="h1">{resolveText(title)}</Text>}
-                {subtitle && <Text as="p">— {resolveText(subtitle)}</Text>}
-            </div>
-            {renderNavigation()}
-        </Section>}
-        {children}
-    </main>
-}
+   return (
+      <main className="flex-1 flex flex-col">
+         <div className="bg-slate-50 h-16" />
+         {(title || subtitle || buttons|| navigation) && (
+            <Section className="bg-slate-50 p-0 py-6">
+               {(title || subtitle || buttons) && <div className="flex items-center justify-between">
+                  {(title || subtitle) && <div>
+                     {title && <Text as="h1">{title}</Text>}
+                     {subtitle && <Text as="p">{subtitle}</Text>}
+                  </div>}
+                  {buttons && <div>{buttons}</div>}
+               </div>}
+               {navigation && renderNavigation()}
+            </Section>
+         )}
+         {children}
+      </main>
+   );
+};

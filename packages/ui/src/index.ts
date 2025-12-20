@@ -10,6 +10,8 @@ export * from './application/Navigation'
 export * from './application/Page'
 export * from './application/Section'
 
+export * from './data/DataList'
+
 export * from './form/Form'
 export * from './form/FormControl'
 
@@ -26,6 +28,9 @@ export * from './inputs/InputText'
 export * from './inputs/RadioGroup'
 export * from './inputs/Select'
 export * from './inputs/Toggle'
+
+export * from './overlay/Modal'
+
 
 export * from './cn';
 

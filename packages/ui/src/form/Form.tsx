@@ -3,12 +3,16 @@ import { cn } from "../cn";
 
 export type FormProps = React.ComponentProps<'form'> & {
     submitText?: string
+    error?: string
 }
 
 export const Form = ({
     submitText = 'submit',
+    error,
+    
     children,
     className,
+
     ...rest
 }: FormProps) => {
 
@@ -16,6 +20,9 @@ export const Form = ({
     const showButtons = !!showSubmit
 
     return <form className={cn(className)} {...rest}>
+        <div>
+            {error}
+        </div>
         <div className="space-y-6">
             {children}
         </div>
