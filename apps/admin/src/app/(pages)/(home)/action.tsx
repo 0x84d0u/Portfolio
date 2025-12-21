@@ -2,8 +2,10 @@
 
 import { parseFieldValue } from "@portfolio/ui";
 
-
-export const fakeAction = async (prev: { values?: unknown }, fd: FormData) : Promise<{ values?: unknown }> => {
+export const fakeAction = async (
+    prev: { values?: unknown },
+    fd: FormData
+): Promise<{ values?: unknown }> => {
 
     const values = {
         "string": {

@@ -1,5 +1,5 @@
 export type FormState = {
-    error?: boolean
+    error?: string
     success?: boolean
     values?: unknown
     fieldErrors?: unknown

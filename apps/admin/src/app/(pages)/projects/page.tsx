@@ -1,34 +1,40 @@
 import { DashboardPage, Section } from "@portfolio/ui";
-// import { fetchExperiences } from "../../../features/experience/action";
-// import { CreateExperience } from "../../../features/experience/components/CreateExperience";
-// import { ExperienceType } from "../../../generated/prisma/enums";
-// import { ReadExperience } from "../../../features/experience/components/ReadExperience";
+import { ProjectCategory } from "../../../generated/prisma/enums";
+import { CreateProject } from "../../../features/project/components/CreateProject";
+import { fetchProjects } from "../../../features/project/actions";
+import { ReadProject } from "../../../features/project/components/ReadProject";
 
 export default async function ProjectsPage() {
-    // const experiences = await fetchExperiences();
+    const projects = await fetchProjects();
 
     return <DashboardPage
         title="Projects"
         buttons={<>
-            {/* <CreateExperience type={ExperienceType.work} />
-            <CreateExperience type={ExperienceType.education} />
-            <CreateExperience type={ExperienceType.certificate} /> */}
+            <CreateProject />
         </>}
     >
-        <Section title="Work">
+        
+        <Section title="Portfolio">
             <div className="flex flex-col gap-6">
-                {/* {experiences.filter(i => i.type === ExperienceType.work).map((item, key) => <ReadExperience key={key} data={item} />)} */}
-            </div>
-        </Section>
-        <Section title="Education">
-            <div className="flex flex-col gap-6">
-                {/* {experiences.filter(i => i.type === ExperienceType.education).map((item, key) => <ReadExperience key={key} data={item} />)} */}
+                {projects.filter(i => i.category === ProjectCategory.portfolio).map((item, key) => <ReadProject key={key} data={item} />)}
             </div>
         </Section>
 
-        <Section title="Certificates">
+        <Section title="Personal">
             <div className="flex flex-col gap-6">
-                {/* {experiences.filter(i => i.type === ExperienceType.certificate).map((item, key) => <ReadExperience key={key} data={item} />)} */}
+                {projects.filter(i => i.category === ProjectCategory.personal).map((item, key) => <ReadProject key={key} data={item} />)}
+            </div>
+        </Section>
+
+        <Section title="Professional">
+            <div className="flex flex-col gap-6">
+                {projects.filter(i => i.category === ProjectCategory.professional).map((item, key) => <ReadProject key={key} data={item} />)}
+            </div>
+        </Section>
+
+        <Section title="Other">
+            <div className="flex flex-col gap-6">
+                {projects.filter(i => i.category === ProjectCategory.other).map((item, key) => <ReadProject key={key} data={item} />)}
             </div>
         </Section>
     </DashboardPage>

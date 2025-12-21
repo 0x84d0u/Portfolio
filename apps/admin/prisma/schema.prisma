@@ -82,7 +82,7 @@ model Project {
 
   title       String
   desc        String
-  description String?
+  description String[]
 
   category ProjectCategory
   status   ProjectStatus

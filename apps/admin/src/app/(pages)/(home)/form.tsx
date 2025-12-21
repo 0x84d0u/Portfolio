@@ -50,7 +50,11 @@ export const FakeForm = () => {
       </Form.Control>
 
       <Form.Control label="Radio">
-        <Field.Radio name="radio" options={["Option 1", "Option 2", "Option 3"]} />
+        <Field.Radio name="radio" options={[
+          { label: "Option 1", value: "opt1"},
+          { label: "Option 2", value: "opt2"},
+          { label: "Option 3", value: "opt3"},
+        ]} />
       </Form.Control>
 
     </Form.Wrapper>
