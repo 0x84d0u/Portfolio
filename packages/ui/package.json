@@ -4,7 +4,7 @@
   "private": true,
   "exports": {
     ".": "./src/index.ts",
-    "./styles" : "./styles.css"
+    "./styles": "./styles.css"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
@@ -14,20 +14,21 @@
   "devDependencies": {
     "@portfolio/eslint-config": "workspace:*",
     "@portfolio/typescript-config": "workspace:*",
+    "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9.39.1",
-    "typescript": "5.9.2",
     "tailwindcss": "^4",
-    "@tailwindcss/postcss": "^4"
+    "typescript": "5.9.2"
   },
   "dependencies": {
-    "next": "16.0.10",
     "clsx": "^2.1.1",
     "lucide-react": "^0.562.0",
+    "next": "16.0.10",
     "react": "19.2.1",
     "react-dom": "19.2.1",
-    "tailwind-merge": "^3.4.0"
+    "tailwind-merge": "^3.4.0",
+    "zod": "^4.2.1"
   }
 }

@@ -1,20 +1,19 @@
-import { cn } from "../../cn"
-import { Text } from "../../foundation/Typograpghy"
+import { cn } from "../../../cn"
+import { Text } from "../../../foundation/Typograpghy"
 
-export type FormControlProps = {
+export type FormFieldProps = {
     label?: string
     children?: React.ReactNode
     className?: string
-    error?: string[]
+    errors?: string[]
 }
 
-
-export const FormControl = ({
+export const FormField = ({
     label,
     children,
-    error,
+    errors,
     className
-}: FormControlProps) => {
+}: FormFieldProps) => {
     return <div className="flex-1 flex flex-col gap-2">
 
         <div className="flex items-start">
@@ -26,8 +25,8 @@ export const FormControl = ({
             </div>
         </div>
 
-        {(error && error.length > 0) && <div>
-            {error.map((err, index) => <Text key={index} size="very-small">{err}</Text>)}
+        {(errors && errors.length > 0) && <div>
+            {errors.map((err, index) => <Text key={index} size="very-small">{err}</Text>)}
         </div>}
     </div>
 }

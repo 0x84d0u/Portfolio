@@ -3,6 +3,6 @@
   "compilerOptions": {
     "outDir": "dist"
   },
-  "include": ["src"],
+  "include": ["src", "../../apps/admin/src/app/(pages)/(home)/DemoForm.tsx"],
   "exclude": ["node_modules", "dist"]
 }

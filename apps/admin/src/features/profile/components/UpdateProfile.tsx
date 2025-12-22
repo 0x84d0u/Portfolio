@@ -1,20 +1,20 @@
-"use client"
+// "use client"
 
-import { useRouter } from "next/navigation";
-import { ProfileForm } from "./ProfileForm";
-import { ProfileModel } from "../types";
+// import { useRouter } from "next/navigation";
+// import { ProfileForm } from "./ProfileForm";
+// import { ProfileModel } from "../types";
 
-export default function UpdateProfile({
-    data,
-}: {
-    data: ProfileModel
-}) {
-    const router = useRouter();
+// export default function UpdateProfile({
+//     data,
+// }: {
+//     data: ProfileModel
+// }) {
+//     const router = useRouter();
 
-    return <ProfileForm
-        initialData={data}
-        onSuccess={() => {
-            router.refresh();
-        }}
-    />
-}
+//     return <ProfileForm
+//         data={data}
+//         onSuccess={() => {
+//             router.refresh();
+//         }}
+//     />
+// }

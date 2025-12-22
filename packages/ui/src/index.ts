@@ -5,6 +5,10 @@ export * from './code';
 export * from './Field'
 export * from './Form'
 
+export * as Formidable from './Formidable'
+export *  from './ModelForm'
+
+
 
 export * from './application/Dashboard'
 export * from './application/DashboardPage'

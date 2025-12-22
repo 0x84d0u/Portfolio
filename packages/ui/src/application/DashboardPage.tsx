@@ -50,9 +50,6 @@ export const DashboardPage = ({
    buttons,
    navigation,
 }: DashboardPageProps) => {
-   const pathname = usePathname();
-
-   const showHeader = !!title || !!subtitle || !!navigation;
 
    const renderNavigation = () => {
       if (!navigation) return null;
@@ -85,13 +82,13 @@ export const DashboardPage = ({
    };
 
    return (
-      <main className="flex-1 flex flex-col">
-         <div className="bg-slate-50 h-16" />
+      <main className="flex-1 flex flex-col bg-slate-50">
+         <div className="h-16 tablet:hidden" />
          {(title || subtitle || buttons|| navigation) && (
-            <Section className="bg-slate-50 p-0 py-6">
+            <Section className="p-0 py-12 ">
                {(title || subtitle || buttons) && <div className="flex items-center justify-between">
                   {(title || subtitle) && <div>
-                     {title && <Text as="h1">{title}</Text>}
+                     {title && <Text as="h1" className="text-3xl text-heading font-semibold">{title}</Text>}
                      {subtitle && <Text as="p">{subtitle}</Text>}
                   </div>}
                   {buttons && <div>{buttons}</div>}

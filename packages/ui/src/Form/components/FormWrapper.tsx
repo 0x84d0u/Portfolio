@@ -7,7 +7,7 @@ export type FormProps = React.ComponentProps<'form'> & {
 }
 
 export const FormWrapper = ({
-    submitText = 'submit',
+    submitText = 'Submit',
     error,
     
     children,
@@ -19,11 +19,19 @@ export const FormWrapper = ({
     const showSubmit = !!submitText
     const showButtons = !!showSubmit
 
-    return <form className={cn(className)} {...rest}>
+    return <form 
+        className={cn(
+            "max-w-screen-tablet mx-auto",
+            "bg-white border border-border p-6 rounded-2xl",
+            className
+        )} 
+        {...rest}
+        
+        >
         <div>
             {error}
         </div>
-        <div className="space-y-6">
+        <div className="space-y-4">
             {children}
         </div>
         {showButtons && <div className="py-6">
